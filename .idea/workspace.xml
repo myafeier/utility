@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6488cb46-12a5-4f94-8a86-0ced2e2b161d" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/file.go" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/logger.go" />
-    </list>
+    <list default="true" id="6488cb46-12a5-4f94-8a86-0ced2e2b161d" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +15,7 @@
         <entry file="file://$PROJECT_DIR$/common.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="60" column="5" lean-forward="true" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+              <caret line="60" column="5" lean-forward="false" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
               <folding>
                 <element signature="e#100#335#0" expanded="true" />
               </folding>
@@ -30,8 +26,8 @@
       <file leaf-file-name="file.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/file.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-198">
-              <caret line="105" column="16" lean-forward="false" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
+            <state relative-caret-position="262">
+              <caret line="125" column="10" lean-forward="true" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
               <folding>
                 <element signature="e#17#213#0" expanded="true" />
               </folding>
@@ -75,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/common_test.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-3755">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -147,6 +143,11 @@
               <item name="utility" type="b2602c69:ProjectViewProjectNode" />
               <item name="utility" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="utility" type="b2602c69:ProjectViewProjectNode" />
+              <item name="utility" type="462c0819:PsiDirectoryNode" />
+              <item name="Godeps" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -212,7 +213,7 @@
     <entry file="file://$PROJECT_DIR$/common_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3755">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -246,7 +247,7 @@
     <entry file="file://$PROJECT_DIR$/common.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="60" column="5" lean-forward="true" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+          <caret line="60" column="5" lean-forward="false" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
           <folding>
             <element signature="e#100#335#0" expanded="true" />
           </folding>
@@ -255,8 +256,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/file.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-198">
-          <caret line="105" column="16" lean-forward="false" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
+        <state relative-caret-position="262">
+          <caret line="125" column="10" lean-forward="true" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
           <folding>
             <element signature="e#17#213#0" expanded="true" />
           </folding>
