@@ -1,0 +1,50 @@
+{
+	"ImportPath": "github.com/myafeier/utility",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/BurntSushi/graphics-go/graphics",
+			"Rev": "b43f31a4a96688fba0b612e25e22648b9267e498"
+		},
+		{
+			"ImportPath": "github.com/BurntSushi/graphics-go/graphics/convolve",
+			"Rev": "b43f31a4a96688fba0b612e25e22648b9267e498"
+		},
+		{
+			"ImportPath": "github.com/BurntSushi/graphics-go/graphics/interp",
+			"Rev": "b43f31a4a96688fba0b612e25e22648b9267e498"
+		},
+		{
+			"ImportPath": "github.com/Unknwon/com",
+			"Comment": "v1-13-g7677a1d",
+			"Rev": "7677a1d7c1137cd3dd5ba7a076d0c898a1ef4520"
+		},
+		{
+			"ImportPath": "github.com/go-macaron/inject",
+			"Rev": "d8a0b8677191f4380287cfebd08e462217bac7ad"
+		},
+		{
+			"ImportPath": "github.com/go-macaron/session",
+			"Rev": "b8e286a0dba8f4999042d6b258daf51b31d08938"
+		},
+		{
+			"ImportPath": "github.com/myafeier/logger",
+			"Rev": "75801dc98ba8d8ca034bd1766c357db768b69d38"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/pbkdf2",
+			"Rev": "6a293f2d4b14b8e6d3f0539e383f6d0d30fce3fd"
+		},
+		{
+			"ImportPath": "gopkg.in/ini.v1",
+			"Comment": "v1.30.3",
+			"Rev": "f280b3ba517bf5fc98922624f21fb0e7a92adaec"
+		},
+		{
+			"ImportPath": "gopkg.in/macaron.v1",
+			"Comment": "v1.2.3",
+			"Rev": "534b5803c7c0bfb3a59632359a94bc761d393d4c"
+		}
+	]
+}
