@@ -100,16 +100,24 @@ func (self *FileManager) UploadMultiFileFromMultiForm(ctx *macaron.Context, thum
 		num := len(fhs) //文件数
 		if num > self.SiteMaxFileNumber {
 			err = fmt.Errorf("文件数超过限制：%d", self.SiteMaxFileNumber)
+			logger.Error(err)
 			return
 		}
 		for _, fheader := range fhs {
 			err = self.GeneralFileInfo(fheader)
 			if err != nil {
+				logger.Error(err)
 				return
 			}
 
 			err = self.UploadPic(fheader)
 			if err != nil {
+				logger.Error(err)
+				return
+			}
+			err=self.thumb()
+			if err != nil {
+				logger.Error(err)
 				return
 			}
 			f := new(UploadFile)
