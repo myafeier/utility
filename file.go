@@ -3,6 +3,7 @@ package utility
 import (
 	"fmt"
 	"github.com/BurntSushi/graphics-go/graphics"
+	logger "github.com/myafeier/log"
 	"gopkg.in/macaron.v1"
 	"image"
 	"image/jpeg"
@@ -15,6 +16,11 @@ import (
 	"sync"
 	"time"
 )
+
+func init()  {
+	logger.SetPrefix("utility")
+	logger.SetLogLevel(logger.DEBUG)
+}
 
 //文件管理器结构
 type FileManager struct {
@@ -112,24 +118,24 @@ func (self *FileManager) UploadMultiFileFromMultiForm(ctx *macaron.Context, thum
 		num := len(fhs) //文件数
 		if num > self.SiteMaxFileNumber {
 			err = fmt.Errorf("文件数超过限制：%d", self.SiteMaxFileNumber)
-			logger.Error(err)
+			logger.Error(err.Error())
 			return
 		}
 		for _, fheader := range fhs {
 			err = self.GeneralFileInfo(fheader)
 			if err != nil {
-				logger.Error(err)
+				logger.Error(err.Error())
 				return
 			}
 
 			err = self.UploadPic(fheader)
 			if err != nil {
-				logger.Error(err)
+				logger.Error(err.Error())
 				return
 			}
 			err = self.thumb()
 			if err != nil {
-				logger.Error(err)
+				logger.Error(err.Error())
 				return
 			}
 			f := new(UploadFile)
@@ -171,7 +177,7 @@ func (self *FileManager) GeneralFileInfo(fh *multipart.FileHeader) (err error) {
 	publicDir := self.SitePublicDir
 
 	if err != nil {
-		logger.Error(err)
+		logger.Error(err.Error())
 		return
 	}
 
@@ -242,7 +248,7 @@ func (self *FileManager) thumb() (err error) {
 	f, err := os.Open(self.FullPath + self.FileName + self.FileType)
 	defer f.Close()
 	if err != nil {
-		logger.Error(err)
+		logger.Error(err.Error())
 		return
 	}
 
@@ -265,7 +271,7 @@ func (self *FileManager) thumb() (err error) {
 		height = imageHeight
 
 	}
-	logger.Debugf("origin size,width:%d,height:%d,now width:%d,height:%d",imageWidth,imageHeight,width,height)
+	logger.Debug("origin size,width:%d,height:%d,now width:%d,height:%d",imageWidth,imageHeight,width,height)
 
 	dstFile := image.NewRGBA(image.Rect(0, 0, width, height))
 
@@ -290,7 +296,7 @@ func (self *FileManager) thumb() (err error) {
 	default:
 		err = fmt.Errorf("File is not a image")
 	}
-	logger.Error(err)
+	logger.Error(err.Error())
 	self.ThumbUrl = self.SiteStaticUrl + "/" + self.UploadDir + "/" + time.Now().Format("2006-01-02") + "/" + self.FileName + "_thumb" + self.FileType
 	return
 }
