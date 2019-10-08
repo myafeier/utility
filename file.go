@@ -296,7 +296,10 @@ func (self *FileManager) thumb() (err error) {
 	default:
 		err = fmt.Errorf("File is not a image")
 	}
-	logger.Error(err.Error())
+	if err != nil {
+		logger.Error("4", err)
+		return
+	}
 	self.ThumbUrl = self.SiteStaticUrl + "/" + self.UploadDir + "/" + time.Now().Format("2006-01-02") + "/" + self.FileName + "_thumb" + self.FileType
 	return
 }
