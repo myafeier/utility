@@ -1,19 +1,19 @@
 package utility
 
 import (
-	"image/png"
-	"image/jpeg"
-	"mime/multipart"
-	"strings"
-	"path/filepath"
-	"image"
-	"github.com/BurntSushi/graphics-go/graphics"
-	"sync"
-	"os"
 	"fmt"
-	"time"
-	"io"
+	"github.com/BurntSushi/graphics-go/graphics"
 	"gopkg.in/macaron.v1"
+	"image"
+	"image/jpeg"
+	"image/png"
+	"io"
+	"mime/multipart"
+	"os"
+	"path/filepath"
+	"strings"
+	"sync"
+	"time"
 )
 
 //文件管理器结构
@@ -46,7 +46,13 @@ type UploadFile struct {
 	FilePath      string //文件存储路径
 }
 
-//返回一个文件管理器
+//返回一个文件管理器，可以
+/*
+ * SiteStaticUrl  静态站点url
+ * SiteRootPath 运行目录绝对路径
+ * SitePublicDir public目录名称
+ * SiteUploadDir upload目录名称
+ */
 func NewFileManager(SiteStaticUrl, SiteRootPath, SitePublicDir, SiteUploadDir string, SiteMaxFileUploadSizeMb, SiteMaxFileNumber int) (fm *FileManager) {
 	fm = new(FileManager)
 	fm.SiteStaticUrl = SiteStaticUrl
@@ -61,9 +67,9 @@ func NewFileManager(SiteStaticUrl, SiteRootPath, SitePublicDir, SiteUploadDir st
 		fm.SitePublicDir = SitePublicDir
 	}
 	if SiteUploadDir == "" {
-		fm.SitePublicDir = "upload"
+		fm.SiteUploadDir = "upload"
 	} else {
-		fm.SitePublicDir = SiteUploadDir
+		fm.SiteUploadDir = SiteUploadDir
 	}
 
 	if SiteMaxFileNumber == 0 {
@@ -78,6 +84,12 @@ func NewFileManager(SiteStaticUrl, SiteRootPath, SitePublicDir, SiteUploadDir st
 	}
 
 	return
+}
+
+// 返回默认文件管理器
+func NewDefaultFileManager(SiteStaticUrl string) (fm *FileManager) {
+
+	return NewFileManager(SiteStaticUrl, "", "", "", 0, 0)
 }
 
 //通过multiform 上传多个文件
@@ -115,18 +127,18 @@ func (self *FileManager) UploadMultiFileFromMultiForm(ctx *macaron.Context, thum
 				logger.Error(err)
 				return
 			}
-			err=self.thumb()
+			err = self.thumb()
 			if err != nil {
 				logger.Error(err)
 				return
 			}
 			f := new(UploadFile)
 			f.FileName = self.FileName + self.FileType
-			f.ThumbFileName=self.FileName+"_thumb"+self.FileType
+			f.ThumbFileName = self.FileName + "_thumb" + self.FileType
 			f.Url = self.SiteStaticUrl + string(filepath.Separator) + self.ShortPath + f.FileName
-			f.ThumbUrl=self.SiteStaticUrl + string(filepath.Separator) + self.ShortPath + f.ThumbFileName
+			f.ThumbUrl = self.SiteStaticUrl + string(filepath.Separator) + self.ShortPath + f.ThumbFileName
 			f.FilePath = self.FullPath
-			files=append(files,f)
+			files = append(files, f)
 		}
 	} else {
 		err = fmt.Errorf("%s", "无图片上传")
@@ -231,6 +243,7 @@ func (self *FileManager) thumb() (err error) {
 	defer f.Close()
 	if err != nil {
 		logger.Error(err)
+		return
 	}
 
 	simage, name, err := image.Decode(f)
@@ -252,6 +265,7 @@ func (self *FileManager) thumb() (err error) {
 		height = imageHeight
 
 	}
+	logger.Debugf("origin size,width:%d,height:%d,now width:%d,height:%d",imageWidth,imageHeight,width,height)
 
 	dstFile := image.NewRGBA(image.Rect(0, 0, width, height))
 
@@ -272,10 +286,11 @@ func (self *FileManager) thumb() (err error) {
 	case "png":
 		err = png.Encode(tfile, dstFile)
 	case "jpeg":
-		err = jpeg.Encode(tfile, dstFile, &jpeg.Options{100})
+		err = jpeg.Encode(tfile, dstFile, &jpeg.Options{90})
 	default:
 		err = fmt.Errorf("File is not a image")
 	}
+	logger.Error(err)
 	self.ThumbUrl = self.SiteStaticUrl + "/" + self.UploadDir + "/" + time.Now().Format("2006-01-02") + "/" + self.FileName + "_thumb" + self.FileType
 	return
 }
