@@ -17,10 +17,10 @@ import (
 	"time"
 )
 
-func init()  {
-	logger.SetPrefix("utility")
-	logger.SetLogLevel(logger.DEBUG)
-}
+//func init()  {
+//	logger.SetPrefix("Utility_file")
+//	logger.SetLogLevel(logger.DEBUG)
+//}
 
 //文件管理器结构
 type FileManager struct {

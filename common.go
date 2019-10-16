@@ -10,7 +10,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"log"
+	logger "github.com/myafeier/log"
 	"net/http"
 	"os"
 	"sync"
@@ -28,6 +28,11 @@ import (
 	"bytes"
 	"math"
 )
+
+func init()  {
+	logger.SetPrefix("Utility")
+	logger.SetLogLevel(logger.DEBUG)
+}
 
 
 type Common struct {
@@ -97,35 +102,6 @@ func openRandomDev() (*os.File,error) {
 
 
 
-
-
-
-func (self *Common)SetLog(runMode, AppPath, fileSepatator, logFileName string, logger *log.Logger) {
-
-	switch runMode {
-	case "test":
-		logger.SetOutput(os.Stdout)
-
-	case "proc":
-		err := os.MkdirAll(AppPath+fileSepatator+"logs", os.ModePerm)
-		if err != nil {
-			log.Fatalln("Fail to create log directory!")
-		}
-
-		logFile, logErr := os.OpenFile(AppPath+fileSepatator+"logs"+fileSepatator+logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-		if logErr != nil {
-			log.Fatalln("Fail to Open log file!", logFileName)
-		}
-		logger.SetOutput(logFile)
-	default:
-		log.Println("Run mode error!")
-		os.Exit(1)
-	}
-	logger.SetFlags(log.LstdFlags | log.Ldate | log.Ltime | log.Lshortfile)
-
-	log.Println("Server running in [" + runMode + "] Mode!")
-
-}
 
 ////获取用户信息
 //func GetUserInfoOfContex(ctx *macaron.Context) (result *model.User, err error) {
@@ -404,7 +380,6 @@ func (self *Common)GenerateGeneralSign(paras map[string]string) (sign string) {
 			strs += "&"
 		}
 	}
-	log.Println(strs)
 
 	md5Ctx := md5.New()
 	md5Ctx.Write([]byte(strings.ToUpper(strs)))
