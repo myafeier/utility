@@ -1,4 +1,4 @@
-module utility
+module github.com/myafeier/utility
 
 go 1.13
 
