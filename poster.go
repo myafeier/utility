@@ -57,23 +57,29 @@ func (self *OriginGenerateBehavior) Generate(config *Config) (poster *bytes.Buff
 	} else {
 		draw.Draw(self.Board, image.Rect(0, 0, config.PosterWidth, config.PosterHeight), config.Background, image.Point{0, 0}, draw.Over)
 	}
-	err = config.ScaleMainImage(config.PosterWidth, 500)
-	if err != nil {
-		logger.Error(err.Error())
-		return
+	if config.MainImage!=nil{
+		err = config.ScaleMainImage(config.PosterWidth, 500)
+		if err != nil {
+			logger.Error(err.Error())
+			return
+		}
+		draw.Draw(self.Board, image.Rect(0, 0, config.PosterWidth, config.PosterHeight), config.MainImage, image.Point{-(config.PosterWidth - config.MainImage.Bounds().Max.X) / 2, -30}, draw.Over)
 	}
-	err = config.ScaleMicroAppCode(430, 430)
-	if err != nil {
-		logger.Error(err.Error())
-		return
+	if config.MicroAppCode!=nil{
+		err = config.ScaleMicroAppCode(430, 430)
+		if err != nil {
+			logger.Error(err.Error())
+			return
+		}
+		draw.Draw(self.Board, image.Rect(0, 0, config.PosterWidth, config.PosterHeight), config.MicroAppCode, image.Point{-(config.PosterWidth - config.MicroAppCode.Bounds().Max.X) / 2, -800}, draw.Over)
 	}
-	fmt.Println(config.MainImage.Bounds().Max)
-	fmt.Println(config.MicroAppCode.Bounds().Max)
 
-	fmt.Println(-(config.PosterWidth - config.MainImage.Bounds().Max.X)/2, -30)
-	fmt.Println(-(config.PosterWidth - config.MicroAppCode.Bounds().Max.X)/2, -800)
-	draw.Draw(self.Board, image.Rect(0, 0, config.PosterWidth, config.PosterHeight), config.MainImage, image.Point{-(config.PosterWidth - config.MainImage.Bounds().Max.X) / 2, -30}, draw.Over)
-	draw.Draw(self.Board, image.Rect(0, 0, config.PosterWidth, config.PosterHeight), config.MicroAppCode, image.Point{-(config.PosterWidth - config.MicroAppCode.Bounds().Max.X) / 2, -800}, draw.Over)
+	//fmt.Println(config.MainImage.Bounds().Max)
+	//fmt.Println(config.MicroAppCode.Bounds().Max)
+	//
+	//fmt.Println(-(config.PosterWidth - config.MainImage.Bounds().Max.X)/2, -30)
+	//fmt.Println(-(config.PosterWidth - config.MicroAppCode.Bounds().Max.X)/2, -800)
+
 
 	//写入文字
 
@@ -89,23 +95,29 @@ func (self *OriginGenerateBehavior) Generate(config *Config) (poster *bytes.Buff
 	c.SetClip(self.Board.Bounds())
 	c.SetDst(self.Board)
 
-	c.SetFontSize(float64(config.Title.FontSize))
-	c.SetSrc(image.NewUniform(config.Title.FontColor))
-	//article.PostTitle
-	_, err = c.DrawString(config.Title.Title, freetype.Pt((self.Board.Bounds().Max.X-int(c.PointToFixed(float64(config.Title.FontSize))>>6)*utf8.RuneCountInString(config.Title.Title))/2, config.MainImage.Bounds().Max.Y+60+int(c.PointToFixed(float64(config.Title.FontSize))>>6)/2))
-	if err != nil {
-		logger.Error(err.Error())
-		return
+	if config.Title!=nil{
+		c.SetFontSize(float64(config.Title.FontSize))
+		c.SetSrc(image.NewUniform(config.Title.FontColor))
+		//article.PostTitle
+		_, err = c.DrawString(config.Title.Title, freetype.Pt((self.Board.Bounds().Max.X-int(c.PointToFixed(float64(config.Title.FontSize))>>6)*utf8.RuneCountInString(config.Title.Title))/2, config.MainImage.Bounds().Max.Y+60+int(c.PointToFixed(float64(config.Title.FontSize))>>6)/2))
+		if err != nil {
+			logger.Error(err.Error())
+			return
+		}
 	}
 
-	c.SetFontSize(float64(config.AppName.FontSize))
-	c.SetSrc(image.NewUniform(config.AppName.FontColor))
-	//article.PostTitle
-	_, err = c.DrawString(config.AppName.Title, freetype.Pt((self.Board.Bounds().Max.X-int(c.PointToFixed(float64(config.AppName.FontSize))>>6)*utf8.RuneCountInString(config.AppName.Title))/2, 750+int(c.PointToFixed(float64(config.Title.FontSize))>>6)/2))
-	if err != nil {
-		logger.Error(err.Error())
-		return
+
+	if config.AppName!=nil{
+		c.SetFontSize(float64(config.AppName.FontSize))
+		c.SetSrc(image.NewUniform(config.AppName.FontColor))
+		//article.PostTitle
+		_, err = c.DrawString(config.AppName.Title, freetype.Pt((self.Board.Bounds().Max.X-int(c.PointToFixed(float64(config.AppName.FontSize))>>6)*utf8.RuneCountInString(config.AppName.Title))/2, 750+int(c.PointToFixed(float64(config.AppName.FontSize))>>6)/2))
+		if err != nil {
+			logger.Error(err.Error())
+			return
+		}
 	}
+
 
 	poster = new(bytes.Buffer)
 

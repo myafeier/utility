@@ -11,10 +11,10 @@ import (
 func TestOriginGenerateBehavior_Generate(t *testing.T) {
 
 	config:=new(Config)
-	config.AppName=new(SingleText)
-	config.AppName.Title="测试小程序"
-	config.AppName.FontSize=30
-	config.AppName.FontColor=color.Black
+	//config.AppName=new(SingleText)
+	//config.AppName.Title="测试小程序"
+	//config.AppName.FontSize=30
+	//config.AppName.FontColor=color.Black
 	config.Title=new(SingleText)
 	config.Title.Title="测试标题标题标题"
 	config.Title.FontSize=35
@@ -54,6 +54,7 @@ func TestOriginGenerateBehavior_Generate(t *testing.T) {
 	config.PosterWidth=920
 	config.PosterHeight=1280
 
+	//config.MainImage=nil
 	behavior:=new(OriginGenerateBehavior)
 	buf,err:=GeneratePoster(config,behavior)
 	if err != nil {

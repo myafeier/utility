@@ -195,7 +195,7 @@ func (self *FileManager) UploadPic(fh *multipart.FileHeader) (err error) {
 	defer self.Unlock()
 	err = os.MkdirAll(self.FullPath, os.ModePerm)
 	if err != nil {
-		logger.Error("err in create directory! err:", err)
+		logger.Error("err in create directory! err:%s", err.Error())
 		return
 	}
 
@@ -203,7 +203,7 @@ func (self *FileManager) UploadPic(fh *multipart.FileHeader) (err error) {
 	defer toFile.Close()
 
 	if err != nil {
-		logger.Error("Error found in create file:", err)
+		logger.Error("Error found in create file:%s", err.Error())
 		return
 	}
 	sFile, err := fh.Open()
@@ -221,7 +221,7 @@ func (self *FileManager) UploadSinglePicThenThumbOne(inFile multipart.File) (err
 	defer self.Unlock()
 	err = os.MkdirAll(self.FullPath, os.ModePerm)
 	if err != nil {
-		logger.Error("err in create directory! err:", err)
+		logger.Error("err in create directory! err:%s", err.Error())
 		return
 	}
 
@@ -229,7 +229,7 @@ func (self *FileManager) UploadSinglePicThenThumbOne(inFile multipart.File) (err
 	defer f.Close()
 
 	if err != nil {
-		logger.Error("Error found in create file:", err)
+		logger.Error("Error found in create file:%s", err.Error())
 		return
 	}
 	io.Copy(f, inFile)
@@ -255,7 +255,7 @@ func (self *FileManager) thumb() (err error) {
 	simage, name, err := image.Decode(f)
 
 	if err != nil {
-		logger.Error("1", err)
+		logger.Error("%s", err.Error())
 		return
 	}
 
@@ -277,14 +277,14 @@ func (self *FileManager) thumb() (err error) {
 
 	err = graphics.Thumbnail(dstFile, simage)
 	if err != nil {
-		logger.Error("2", err)
+		logger.Error("%s", err.Error())
 		return
 	}
 
 	tfile, err := os.Create(self.FullPath + self.FileName + "_thumb" + self.FileType)
 	defer tfile.Close()
 	if err != nil {
-		logger.Error("3", err)
+		logger.Error("%s", err.Error())
 		return
 	}
 
@@ -297,7 +297,7 @@ func (self *FileManager) thumb() (err error) {
 		err = fmt.Errorf("File is not a image")
 	}
 	if err != nil {
-		logger.Error("4", err)
+		logger.Error("%s", err.Error())
 		return
 	}
 	self.ThumbUrl = self.SiteStaticUrl + "/" + self.UploadDir + "/" + time.Now().Format("2006-01-02") + "/" + self.FileName + "_thumb" + self.FileType
