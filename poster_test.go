@@ -28,7 +28,7 @@ func TestOriginGenerateBehavior_Generate(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	bgFile,err:=os.OpenFile("./test_bg.png",os.O_RDONLY,os.ModePerm)
+	bgFile,err:=os.OpenFile("./920x1280.png",os.O_RDONLY,os.ModePerm)
 	if err != nil {
 		t.Error(err)
 	}
